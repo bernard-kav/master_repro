@@ -1,4 +1,5 @@
 view: accidents {
+#   extension: required
   sql_table_name: public.accidents ;;
 
   dimension: id {
@@ -8,6 +9,7 @@ view: accidents {
   }
 
   dimension: accident_number {
+    description: "accident number"
     type: string
     sql: ${TABLE}.accident_number ;;
   }
@@ -35,6 +37,11 @@ view: accidents {
   dimension: airport_name {
     type: string
     sql: ${TABLE}.airport_name ;;
+  }
+
+  measure: airport_list {
+    type: list
+    list_field: airport_name
   }
 
   dimension: amateur_built {
@@ -67,7 +74,8 @@ view: accidents {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week
     ]
     sql: ${TABLE}.event_date ;;
   }

@@ -5,9 +5,14 @@ case_sensitive: yes
 include: "*.view"
 
 # include all the dashboards
-include: "*.dashboard"
+# include: "*.dashboard.lkml"
 
-explore: accidents {}
+explore: accidents_ext {
+  join: airports_ext {
+    relationship: one_to_one
+    sql_on: ${accidents_ext.country} = ${airports_ext.county} ;;
+  }
+}
 
 explore: aircraft {}
 
