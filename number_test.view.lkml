@@ -1,11 +1,31 @@
-include: "accidents.view.lkml"
-view: accidents_ext {
-  extends: [accidents]
+explore: number_test {}
+view: number_test {
+  derived_table: {
+    sql:
+    select -2 as numb
+    UNION
+    select -1 as numb
+    UNION
+    select 0 as numb
+    UNION
+    SELECT 1 as numb
+    UNION
+    SELECT 2 as numb
 
-  dimension: accident_number {
-    description: "Test extension"
-    type: string
-    sql: ${TABLE}.accident_number ;;
+    ;;
+  }
+
+  dimension: numb {
+    type: number
+  }
+
+  measure: count {
+    type: count
+    filters: {
+      field: numb
+      value: "1, -1"
+    }
+    drill_fields: [numb]
   }
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
@@ -37,7 +57,7 @@ view: accidents_ext {
   # }
 }
 
-# view: accidents_ext {
+# view: number_test {
 #   # Or, you could make this view a derived table, like this:
 #   derived_table: {
 #     sql: SELECT

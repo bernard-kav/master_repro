@@ -35,6 +35,13 @@ view: flights {
     sql: ${TABLE}.dep_delay ;;
   }
 
+  dimension: tier_test {
+    type: tier
+    style: integer
+    tiers: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    sql: ${dep_delay} ;;
+  }
+
   dimension_group: dep {
     type: time
     timeframes: [

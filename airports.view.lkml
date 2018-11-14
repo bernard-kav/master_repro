@@ -1,10 +1,57 @@
 view: airports {
   sql_table_name: public.airports ;;
 
-  dimension: id {
+
+parameter: number_list {
+  type: unquoted
+#   allowed_value: {
+#     label: "10"
+#     value: "10"
+#   }
+#   allowed_value: {
+#     label: "20"
+#     value: "20"
+#   }
+}
+
+dimension: new {
+  sql: ${id} ;;
+}
+
+parameter: test {
+  type: number
+}
+
+dimension: test_param {
+  type: number
+  sql: {% parameter test %} ;;
+}
+
+dimension: city_af {
+  type: string
+  sql: {{_access_filters[airports.city]}} ;;
+}
+
+dimension: county_af {
+  type: string
+  sql:  {{_access_filters[airports.county]}} ;;
+}
+
+
+ dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+  }
+
+  measure: min_test {
+    type: min
+    sql: ${id} ;;
+  }
+
+  dimension: param_list_test {
+    type: yesno
+    sql: ${id} IN ({% parameter number_list %}) ;;
   }
 
   dimension: act_date {
@@ -140,5 +187,16 @@ view: airports {
   measure: count {
     type: count
     drill_fields: [id, full_name]
+    html: {{rendered_value}} || {{accidents.airport_code._rendered_value}} ;;
   }
+
+  measure: test_filter {
+    type: sum
+    filters: {
+      field: count
+      value: ">10"
+    }
+  }
+
+
 }

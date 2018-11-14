@@ -41,8 +41,22 @@ view: cal454 {
     sql: ${TABLE}.year454 ;;
   }
 
-  measure: count {
-    type: count
+  measure: test {
+    type: sum
     drill_fields: []
-  }
+    sql:
+{% if cal454.transdate_date._is_selected %}
+  ${TABLE}.year454
+{% elsif cal454.quarter454._is_filtered %}
+CASE WHEN ${transdate_date}=cast({% date_end cal454.transdate_date %} as DATE)
+THEN ${TABLE}.month454
+ELSE NULL END
+{% else %}
+CASE WHEN EXTRACT(day from DATEADD(day,1,${transdate_date})) = 1
+THEN ${TABLE}.week454
+ELSE NULL END
+
+{% endif %} ;;
+}
+
 }
