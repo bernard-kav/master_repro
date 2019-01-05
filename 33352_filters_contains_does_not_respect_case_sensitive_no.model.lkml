@@ -1,11 +1,13 @@
 connection: "faa_redshift"
 case_sensitive: yes
 
+
+
 # include all the views
 include: "*.view"
 
 # include all the dashboards
-# include: "*.dashboard.lkml"
+include: "*.dashboard.lookml"
 
 explore: accidents_ext {
   join: airports_ext {

@@ -28,6 +28,19 @@ view: flights {
   dimension: carrier {
     type: string
     sql: ${TABLE}.carrier ;;
+    html:
+          {% if value == 'AA' %}
+        <div style="background-color:#D5EFEE">{{ value }}</div>
+      {% elsif value == 'AQ' %}
+        <div style="background-color:#FCECCC">{{ value }}</div>
+      {% elsif value == 'AS' %}
+        <div style="background-color:#DCF4D7">{{ value }}</div>
+      {% elsif value == 'B6' %}
+        <div style="background-color:#EFD5D6">{{ value }}</div>
+      {% elsif value == 'CO' %}
+        <div style="background-color:#F0E9FF">{{ value }}</div>
+      {% endif %}
+    ;;
   }
 
   dimension: dep_delay {
