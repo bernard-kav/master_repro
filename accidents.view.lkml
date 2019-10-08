@@ -171,6 +171,11 @@ filter: date_filter {
     sql: case when ${event_date} = {% date_end event_date %} then ${id} else null end ;;
   }
 
+  dimension: dimensiont_fill_bug {
+    type: yesno
+    sql: ${country} = 'Afghanistan';;
+  }
+
 
 
   dimension: test_1 {
