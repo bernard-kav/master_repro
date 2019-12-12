@@ -195,11 +195,11 @@ measure: drill_test {
   drill_fields: []
 
 }
-  measure: count {
-    type: count
-    drill_fields: [name]
-
-  }
+#   measure: count {
+#     type: count
+#     drill_fields: [name]
+#
+#   }
 }
 
 explore: test {}
