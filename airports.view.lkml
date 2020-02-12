@@ -184,6 +184,12 @@ dimension: county_af {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: airport_coordinates {
+    type: location
+    sql_latitude: ${TABLE}.latitude::float ;;
+    sql_longitude: ${TABLE}.longitude::float ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, full_name]

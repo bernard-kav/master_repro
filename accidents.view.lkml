@@ -42,6 +42,19 @@ filter: date_filter {
     sql: date_trunc({% parameter date_granularity %}, ${TABLE}.event_date) ;;
   }
 
+  dimension: accident_coordinates {
+    type: location
+    sql_latitude: ${TABLE}.latitude::float ;;
+    sql_longitude:${TABLE}.longitude::float ;;
+  }
+
+  dimension: distnace_from_airport {
+    type: distance
+    start_location_field: accidents.accident_coordinates
+    end_location_field: airports.airport_coordinates
+    units: miles
+  }
+
 
   measure: test_ytd {
     type: sum
